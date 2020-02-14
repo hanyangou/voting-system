@@ -13,6 +13,9 @@ public class VotingController {
 
     @RequestMapping(value = "/vote/{option}", method = {RequestMethod.GET})
     public void vote(@PathVariable Integer option){
+        if(!poll.isOngoing()) return;
+        if(option > poll.getTotalOptions()) return;
+
         Integer curCount;
         if(option == 1){
             curCount = poll.getOption1Count();
@@ -36,16 +39,41 @@ public class VotingController {
         return poll;
     }
 
+    @RequestMapping(value = "/vote/pause", method = {RequestMethod.GET})
+    public Poll pausePoll(){
+        poll.setOngoing(false);
+        return poll;
+    }
+
+    @RequestMapping(value = "/vote/resume", method = {RequestMethod.GET})
+    public Poll resumePoll(){
+        poll.setOngoing(true);
+        return poll;
+    }
+
+    @RequestMapping(value = "/vote/create/{topic}/{option1}/{option2}", method = {RequestMethod.GET})
+    public Poll initTwoOptions(@PathVariable String topic, @PathVariable String option1,@PathVariable String option2){
+        poll.setTopic(topic.trim());
+        poll.setOption1(option1.trim());
+        poll.setOption2(option2.trim());
+        poll.setOngoing(true);
+        poll.setOption1Count(0);
+        poll.setOption2Count(0);
+        poll.setTotalOptions(2);
+        return poll;
+    }
+
     @RequestMapping(value = "/vote/create/{topic}/{option1}/{option2}/{option3}", method = {RequestMethod.GET})
-    public Poll init(@PathVariable String topic, @PathVariable String option1,@PathVariable String option2 ,@PathVariable String option3){
-        poll.setTopic(topic);
-        poll.setOption1(option1);
-        poll.setOption2(option2);
-        poll.setOption3(option3);
+    public Poll initThreeOptions(@PathVariable String topic, @PathVariable String option1,@PathVariable String option2 ,@PathVariable String option3){
+        poll.setTopic(topic.trim());
+        poll.setOption1(option1.trim());
+        poll.setOption2(option2.trim());
+        poll.setOption3(option3.trim());
         poll.setOngoing(true);
         poll.setOption1Count(0);
         poll.setOption2Count(0);
         poll.setOption3Count(0);
+        poll.setTotalOptions(3);
         return poll;
     }
 }

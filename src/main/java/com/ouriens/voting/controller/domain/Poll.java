@@ -11,6 +11,15 @@ public class Poll {
     Integer option1Count;
     Integer option2Count;
     Integer option3Count;
+    Integer totalOptions;
+
+    public Integer getTotalOptions() {
+        return totalOptions;
+    }
+
+    public void setTotalOptions(Integer totalOptions) {
+        this.totalOptions = totalOptions;
+    }
 
     boolean ongoing;
 
