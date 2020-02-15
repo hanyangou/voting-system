@@ -50,6 +50,11 @@ public class VotingController {
         return poll;
     }
 
+    @RequestMapping(value = "/vote/start", method = {RequestMethod.GET})
+    public Poll startPoll(){
+        return resumePoll();
+    }
+
     @RequestMapping(value = "/vote/create/{id}/{topic}/{option1}/{option2}", method = {RequestMethod.GET})
     public Poll initTwoOptions(@PathVariable Integer id, @PathVariable String topic, @PathVariable String option1,@PathVariable String option2){
         poll.setId(id);
@@ -69,7 +74,7 @@ public class VotingController {
         poll.setOption1(option1.trim());
         poll.setOption2(option2.trim());
         poll.setOption3(option3.trim());
-        poll.setOngoing(true);
+        poll.setOngoing(false);
         poll.setOption1Count(0);
         poll.setOption2Count(0);
         poll.setOption3Count(0);
