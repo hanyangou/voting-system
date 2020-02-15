@@ -1,7 +1,6 @@
 package com.ouriens.voting.controller;
 
 import com.ouriens.voting.controller.domain.Poll;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,9 +50,9 @@ public class VotingController {
         return poll;
     }
 
-    @RequestMapping(value = "/vote/create/{topic}/{option1}/{option2}", method = {RequestMethod.GET})
-    public Poll initTwoOptions(@PathVariable String topic, @PathVariable String option1,@PathVariable String option2){
-        poll.setTopic(topic.trim());
+    @RequestMapping(value = "/vote/create/{id}/{topic}/{option1}/{option2}", method = {RequestMethod.GET})
+    public Poll initTwoOptions(@PathVariable Integer id, @PathVariable String topic, @PathVariable String option1,@PathVariable String option2){
+        poll.setId(id);
         poll.setOption1(option1.trim());
         poll.setOption2(option2.trim());
         poll.setOngoing(true);
@@ -63,8 +62,9 @@ public class VotingController {
         return poll;
     }
 
-    @RequestMapping(value = "/vote/create/{topic}/{option1}/{option2}/{option3}", method = {RequestMethod.GET})
-    public Poll initThreeOptions(@PathVariable String topic, @PathVariable String option1,@PathVariable String option2 ,@PathVariable String option3){
+    @RequestMapping(value = "/vote/create/{id}/{topic}/{option1}/{option2}/{option3}", method = {RequestMethod.GET})
+    public Poll initThreeOptions(@PathVariable Integer id, @PathVariable String topic, @PathVariable String option1,@PathVariable String option2 ,@PathVariable String option3){
+        poll.setId(id);
         poll.setTopic(topic.trim());
         poll.setOption1(option1.trim());
         poll.setOption2(option2.trim());

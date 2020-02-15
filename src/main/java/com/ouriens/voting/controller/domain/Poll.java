@@ -1,9 +1,7 @@
 package com.ouriens.voting.controller.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-
 public class Poll {
+    Integer id;
     String topic;
     String option1;
     String option2;
@@ -12,6 +10,14 @@ public class Poll {
     Integer option2Count;
     Integer option3Count;
     Integer totalOptions;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getTotalOptions() {
         return totalOptions;
