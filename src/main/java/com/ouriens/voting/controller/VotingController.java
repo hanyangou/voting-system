@@ -10,6 +10,56 @@ import org.springframework.web.bind.annotation.RestController;
 public class VotingController {
     Poll poll = new Poll();
 
+    @RequestMapping(value = "/admin/vote/{option}/{voteNumber}", method = RequestMethod.GET)
+    public Poll updateVote(@PathVariable Integer option, @PathVariable Integer voteNumber){
+        if(option > poll.getTotalOptions()) return poll;
+
+        if(option == 1){
+            poll.setOption1Count(voteNumber);
+        } else if(option == 2){
+            poll.setOption2Count(voteNumber);
+        } else if(option == 3) {
+            poll.setOption3Count(voteNumber);
+        }
+
+        return poll;
+    }
+
+    @RequestMapping(value = "/admin/vote/{totalVote}/{option1Percentage}/{option2Percentage}", method = RequestMethod.GET)
+    public Poll massiveVoteTwoOptions(@PathVariable Integer totalVote, @PathVariable Integer option1Percentage, @PathVariable Integer option2Percentage){
+        if(poll.getTotalOptions() != 2) return poll;
+
+        int total = option1Percentage + option2Percentage;
+        int v1 = totalVote * option1Percentage / total;
+        int v2 = totalVote * option2Percentage / total;
+
+        int o1Total = poll.getOption1Count() + v1;
+        poll.setOption1Count(o1Total);
+        int o2Total = poll.getOption2Count() + v2;
+        poll.setOption2Count(o2Total);
+
+        return poll;
+    }
+
+    @RequestMapping(value = "/admin/vote/{totalVote}/{option1Percentage}/{option2Percentage}/{option3Percentage}", method = RequestMethod.GET)
+    public Poll massiveVoteThreeOptions(@PathVariable Integer totalVote, @PathVariable Integer option1Percentage, @PathVariable Integer option2Percentage, @PathVariable Integer option3Percentage){
+        if(poll.getTotalOptions() != 3) return poll;
+
+        int total = option1Percentage + option2Percentage + option3Percentage;
+        int v1 = totalVote * option1Percentage / total;
+        int v2 = totalVote * option2Percentage / total;
+        int v3 = totalVote * option3Percentage / total;
+
+        int o1Total = poll.getOption1Count() + v1;
+        poll.setOption1Count(o1Total);
+        int o2Total = poll.getOption2Count() + v2;
+        poll.setOption2Count(o2Total);
+        int o3Total = poll.getOption3Count() + v3;
+        poll.setOption3Count(o3Total);
+
+        return poll;
+    }
+
     @RequestMapping(value = "/vote/{option}", method = {RequestMethod.GET})
     public void vote(@PathVariable Integer option){
         if(!poll.isOngoing()) return;
