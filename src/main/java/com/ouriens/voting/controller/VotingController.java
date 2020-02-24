@@ -181,4 +181,8 @@ public class VotingController {
         poll.setTotalOptions(3);
         return poll;
     }
+
+    public Poll getPoll(){
+        return poll;
+    }
 }
