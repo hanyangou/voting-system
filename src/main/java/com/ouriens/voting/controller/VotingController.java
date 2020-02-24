@@ -25,6 +25,25 @@ public class VotingController {
         return poll;
     }
 
+    @RequestMapping(value = "/admin/vote/updateAll/{option1}/{option2}", method = RequestMethod.GET)
+    public Poll updateTwoVotes(@PathVariable Integer option1, @PathVariable Integer option2){
+        if(poll.getTotalOptions() != 2) return poll;
+
+        updateVote(1, option1);
+        updateVote(2, option2);
+        return poll;
+    }
+
+    @RequestMapping(value = "/admin/vote/updateAll/{option1}/{option2}/{option3}", method = RequestMethod.GET)
+    public Poll updateThreeVotes(@PathVariable Integer option1, @PathVariable Integer option2, @PathVariable Integer option3){
+        if(poll.getTotalOptions() != 3) return poll;
+
+        updateVote(1, option1);
+        updateVote(2, option2);
+        updateVote(3, option3);
+        return poll;
+    }
+
     @RequestMapping(value = "/admin/vote/massive/{totalVote}/{option1Percentage}/{option2Percentage}", method = RequestMethod.GET)
     public Poll massiveVoteTwoOptions(@PathVariable Integer totalVote, @PathVariable Integer option1Percentage, @PathVariable Integer option2Percentage){
         if(poll.getTotalOptions() != 2) return poll;
