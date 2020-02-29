@@ -1,5 +1,8 @@
 package com.ouriens.voting.controller.domain;
 
+import java.time.Duration;
+import java.time.LocalTime;
+
 public class Poll {
     Integer id;
     String topic;
@@ -10,6 +13,17 @@ public class Poll {
     Integer option2Count;
     Integer option3Count;
     Integer totalOptions;
+    Integer duration;
+    LocalTime startTime;
+
+    public Integer getDuration() {
+        Long duration = Duration.between(startTime, LocalTime.now()).getSeconds();
+        return duration.intValue();
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
 
     public Integer getId() {
         return id;

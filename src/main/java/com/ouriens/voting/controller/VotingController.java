@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalTime;
+
 @RestController
 public class VotingController {
     Poll poll = new Poll();
@@ -163,6 +165,7 @@ public class VotingController {
         poll.setOption1Count(0);
         poll.setOption2Count(0);
         poll.setTotalOptions(2);
+        poll.setStartTime(LocalTime.now());
         return poll;
     }
 
@@ -179,6 +182,7 @@ public class VotingController {
         poll.setOption2Count(0);
         poll.setOption3Count(0);
         poll.setTotalOptions(3);
+        poll.setStartTime(LocalTime.now());
         return poll;
     }
 
