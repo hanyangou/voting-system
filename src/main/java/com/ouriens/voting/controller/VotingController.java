@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalTime;
-
 @RestController
 public class VotingController {
     Poll poll = new Poll();
@@ -154,8 +152,8 @@ public class VotingController {
         return resumePoll();
     }
 
-    @RequestMapping(value = "/vote/create/{id}/{topic}/{option1}/{option2}", method = {RequestMethod.GET})
-    public Poll initTwoOptions(@PathVariable Integer id, @PathVariable String topic, @PathVariable String option1,@PathVariable String option2){
+    @RequestMapping(value = "/vote/create/{id}/{topic}/{option1}/{option2}/{duration}", method = {RequestMethod.GET})
+    public Poll initTwoOptions(@PathVariable Integer id, @PathVariable String topic, @PathVariable String option1,@PathVariable String option2, @PathVariable Integer duration){
         poll = new Poll();
         poll.setId(id);
         poll.setTopic(topic.trim());
@@ -165,12 +163,12 @@ public class VotingController {
         poll.setOption1Count(0);
         poll.setOption2Count(0);
         poll.setTotalOptions(2);
-        poll.setStartTime(LocalTime.now());
+        poll.setDuration(duration);
         return poll;
     }
 
-    @RequestMapping(value = "/vote/create/{id}/{topic}/{option1}/{option2}/{option3}", method = {RequestMethod.GET})
-    public Poll initThreeOptions(@PathVariable Integer id, @PathVariable String topic, @PathVariable String option1,@PathVariable String option2 ,@PathVariable String option3){
+    @RequestMapping(value = "/vote/create/{id}/{topic}/{option1}/{option2}/{option3}/{duration}", method = {RequestMethod.GET})
+    public Poll initThreeOptions(@PathVariable Integer id, @PathVariable String topic, @PathVariable String option1,@PathVariable String option2 ,@PathVariable String option3, @PathVariable Integer duration){
         poll = new Poll();
         poll.setId(id);
         poll.setTopic(topic.trim());
@@ -182,7 +180,7 @@ public class VotingController {
         poll.setOption2Count(0);
         poll.setOption3Count(0);
         poll.setTotalOptions(3);
-        poll.setStartTime(LocalTime.now());
+        poll.setDuration(duration);
         return poll;
     }
 
